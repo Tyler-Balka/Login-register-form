@@ -17,15 +17,26 @@ export default function SignIn() {
                 <Text style={{fontWeight: 'bold', color: 'white', fontSize: 32, marginBottom: 12}}>Sign in to your Account</Text>
                 <Text style={{color: 'white'}}>Don't have an account?  <Text style={{color: '#2868E8'}}>Sign Up</Text></Text>
 
-                <View style={{backgroundColor: 'white', borderRadius: 8, paddingHorizontal: 128, marginTop: 32, width: '100%'}}>
-                    <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                <View style={{backgroundColor: 'white', borderRadius: 8, paddingHorizontal: 12, marginTop: 32, width: '100%'}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', minHeight: 48, width: '100%', overflow: 'hidden'}}>
                         <Image source={email} style={{width: 16, height: 16,}}/>
-                        <TextInput placeholder='Email' />
+                        <TextInput
+                            placeholder='Email'
+                            autoCapitalize='none'
+                            underlineColorAndroid='transparent'
+                            style={{width: '100%', marginLeft: 8}}
+                        />
+                        
                     </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', minHeight: 48, width: '100%'}}>
                         <Image source={lock} style={{width: 16, height: 16}}/>
-                        <TextInput placeholder='Password' secureTextEntry={true} />
-                        <Image source={eyeOff} style={{width: 16, height: 16}}/>
+                        <TextInput
+                            placeholder='Password'
+                            secureTextEntry={true}
+                            underlineColorAndroid='transparent'
+                            style={{flex: 1, marginLeft: 8, overflow: 'hidden'}}
+                        />
+                        <Image source={eyeOff} style={{width: 16, height: 16,}}/>
                     </View>
                 </View>
                 
@@ -49,5 +60,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '20%',
         left: '6.5%',
+        right: '6.5%',
     }
 });
