@@ -4,8 +4,13 @@ import logo from '../assets/Vector (1).png'
 import email from '../assets/mail.png'
 import lock from '../assets/lock.png'
 import eyeOff from '../assets/eye-off (1).png'
+import eyeOpen from '../assets/eye-open.png'
+import { useState, useEffect } from 'react'
 
 export default function SignIn() {
+    const [passwordVisible, setPasswordVisible] = useState(false);
+
+
     return (
         <View style={styles.container}>
             <Image source={Star} style={{width: '100%', height: '100%'}}/>
@@ -32,11 +37,13 @@ export default function SignIn() {
                         <Image source={lock} style={{width: 16, height: 16}}/>
                         <TextInput
                             placeholder='Password'
-                            secureTextEntry={true}
+                            secureTextEntry={!passwordVisible}
                             underlineColorAndroid='transparent'
                             style={{flex: 1, marginLeft: 8, overflow: 'hidden'}}
                         />
-                        <Image source={eyeOff} style={{width: 16, height: 16,}}/>
+                        <Pressable onPress={() => setPasswordVisible(!passwordVisible)}>
+                            <Image source={passwordVisible ? eyeOpen : eyeOff} style={{width: 16, height: 16,}}/>
+                        </Pressable>
                     </View>
                 </View>
                 
