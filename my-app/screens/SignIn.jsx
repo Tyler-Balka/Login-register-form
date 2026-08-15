@@ -7,7 +7,7 @@ import eyeOff from '../assets/eye-off (1).png'
 import eyeOpen from '../assets/eye-open.png'
 import { useState, useEffect } from 'react'
 
-export default function SignIn() {
+export default function SignIn( {navigation} ) {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
 
@@ -20,7 +20,10 @@ export default function SignIn() {
                     style={{width: 34, height: 34, marginBottom: 16}}
                 />
                 <Text style={{fontWeight: 'bold', color: 'white', fontSize: 32, marginBottom: 12}}>Sign in to your Account</Text>
-                <Text style={{color: 'white'}}>Don't have an account?  <Text style={{color: '#2868E8'}}>Sign Up</Text></Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={{color: 'white'}}>Don't have an account? </Text>
+                    <Pressable onPress={() => navigation.navigate('SignUp')}><Text style={{color: '#2868E8', fontWeight: 'bold'}}>Sign Up</Text></Pressable>
+                </View>
 
                 <View style={{backgroundColor: 'white', borderRadius: 8, paddingHorizontal: 12, marginTop: 32, width: '100%'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center', minHeight: 48, width: '100%', overflow: 'hidden'}}>
