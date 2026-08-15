@@ -10,7 +10,6 @@ import { useState, useEffect } from 'react'
 export default function SignIn( {navigation} ) {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-
     return (
         <View style={styles.container}>
             <Image source={Star} style={{width: '100%', height: '100%'}}/>

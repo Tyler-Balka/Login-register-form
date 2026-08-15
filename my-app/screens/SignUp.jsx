@@ -1,4 +1,6 @@
 import { View, Text, TextInput, Pressable, Image, StyleSheet } from 'react-native'
+import { useState } from 'react'
+import { Alert } from 'react-native'
 import Star from '../assets/Star (1).png'
 import logo from '../assets/Vector (1).png'
 import lock from '../assets/lock.png'
@@ -11,6 +13,22 @@ import eyeOpen from '../assets/eye-open.png'
 import phone from '../assets/phone.png'
 
 export default function SignUp( {navigation} ) {
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [phoneNumber, setPhoneNumber] = useState('')
+
+    const formatPhoneNumber = (phoneNumber) => {
+        if (!phoneNumber) return Alert.alert('Error', 'Phone number is required');
+        // Remove all non-digit characters
+        const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+        // Format the phone number as (XXX) XXX-XXXX
+        const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3];
+        }
+        else
+            return phoneNumber;
+    }
+
     return (
         <View style={styles.container}>
             <Image source={Star} style={{width: '100%', height: '100%'}}/>
@@ -39,12 +57,20 @@ export default function SignUp( {navigation} ) {
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center',}}>
                         <Image source={phone} style={{width: 16, height: 16}}/>
-                        <TextInput placeholder="Phone Number" style={{flex: 1, marginLeft: 8}}></TextInput>
+                        <TextInput 
+                            value={phoneNumber} 
+                            onChangeText={(text) => setPhoneNumber(formatPhoneNumber(text))} 
+                            placeholder="Phone Number" 
+                            keyboardType="phone-pad" 
+                            style={{flex: 1, marginLeft: 8}}>
+                        </TextInput>
                     </View>
                     <View style={{flexDirection: 'row', alignItems: 'center',}}>
                         <Image source={lock} style={{width: 16, height: 16}}/>
-                        <TextInput placeholder="Password" secureTextEntry={true} style={{flex: 1, marginLeft: 8}}></TextInput>
-                        <Image source={eyeOff} style={{width: 16, height: 16}}/>
+                        <TextInput placeholder="Password" secureTextEntry={!passwordVisible} style={{flex: 1, marginLeft: 8}}></TextInput>
+                        <Pressable onPress={() => setPasswordVisible(!passwordVisible)}>
+                            <Image source={passwordVisible ? eyeOpen : eyeOff} style={{width: 16, height: 16}}/>
+                        </Pressable>
                     </View>
                 </View>
                 <Pressable style={{backgroundColor: '#2868E8', paddingVertical: 12, paddingHorizontal: 148, borderRadius: 8,}}>
