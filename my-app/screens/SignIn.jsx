@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
+import { useState, useEffect } from 'react'
 import Star from '../assets/Star (1).png'
 import logo from '../assets/Vector (1).png'
 import email from '../assets/mail.png'
 import lock from '../assets/lock.png'
 import eyeOff from '../assets/eye-off (1).png'
 import eyeOpen from '../assets/eye-open.png'
-import { useState, useEffect } from 'react'
 
 export default function SignIn( {navigation} ) {
     const [passwordVisible, setPasswordVisible] = useState(false);
