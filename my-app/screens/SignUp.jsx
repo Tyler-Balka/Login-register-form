@@ -55,8 +55,10 @@ export default function SignUp( {navigation} ) {
                 },
                 body: JSON.stringify({ username, email, birthday, phoneNumber, password })
             })
+            Alert.alert('User created successfully')
             return await response.json()
         } catch (error) {
+            Alert.alert('Error', 'Failed to create user')
             console.error(error)
         }
     }

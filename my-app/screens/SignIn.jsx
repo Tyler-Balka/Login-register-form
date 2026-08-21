@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Pressable, TextInput, Image } from 'react-native'
 import { useState, useEffect } from 'react'
+import { Alert } from 'react-native'
 import Star from '../assets/Star (1).png'
 import logo from '../assets/Vector (1).png'
 import email from '../assets/mail.png'
@@ -9,6 +10,26 @@ import eyeOpen from '../assets/eye-open.png'
 
 export default function SignIn( {navigation} ) {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const sendPostRequest = async (email, password) => {
+        try {
+            const response = await fetch('http://10.1.10.242:3000/api/sign-in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+            const data = await response.json()
+            Alert.alert('Sign in successful')
+            return data
+        } catch (error) {
+            console.error(error)
+            return { error: 'An error occurred' }
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -32,6 +53,8 @@ export default function SignIn( {navigation} ) {
                             autoCapitalize='none'
                             underlineColorAndroid='transparent'
                             style={{width: '100%', marginLeft: 8}}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                         
                     </View>
@@ -42,6 +65,8 @@ export default function SignIn( {navigation} ) {
                             secureTextEntry={!passwordVisible}
                             underlineColorAndroid='transparent'
                             style={{flex: 1, marginLeft: 8, overflow: 'hidden'}}
+                            value={password}
+                            onChangeText={setPassword}
                         />
                         <Pressable onPress={() => setPasswordVisible(!passwordVisible)}>
                             <Image source={passwordVisible ? eyeOpen : eyeOff} style={{width: 16, height: 16,}}/>
@@ -50,7 +75,9 @@ export default function SignIn( {navigation} ) {
                 </View>
                 
                 <Text style={{color: 'white', textDecorationLine: 'underline', marginVertical: 24}}>Forgot Your Password ?</Text>
-                <Pressable style={{backgroundColor: '#2868E8', paddingVertical: 12, paddingHorizontal: 148, borderRadius: 8,}}>
+                <Pressable 
+                    style={{backgroundColor: '#2868E8', paddingVertical: 12, paddingHorizontal: 148, borderRadius: 8,}}
+                    onPress={() => sendPostRequest(email, password)}>
                     <Text style={{color: 'white'}}>Log In</Text>
                 </Pressable>
             </View>
